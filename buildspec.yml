@@ -19,7 +19,7 @@ phases:
       - mkdir -p res
       - cp bootstrap libsunec.so cacerts server res/
       - ls -lrt res/
-      - aws cloudformation package --template-file template.yaml --output-template-file packaged-template.yaml --s3-bucket common-use-for-andre-and-all
+      - aws cloudformation package --template-file template.yaml --output-template-file packaged-template.yaml --s3-bucket cz-s3-pis-snb
       - pwd
       - cp packaged-template.yaml res/
       - more packaged-template.yaml
