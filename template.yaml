@@ -14,6 +14,7 @@ Resources:
       CodeUri: res
       FunctionName: pac-pe-api-post-02
       Handler: function.handler
+      Role: arn:aws:iam::114872357316:role/PAC-PE-API-POST-role-nolpgpun
       Runtime: provided.al2
       Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
         Variables:
@@ -34,6 +35,6 @@ Outputs:
   PACAPP:
     Description: "PAC Lambda Function ARN"
     Value: !GetAtt PACAPP.Arn
-  PACAPPIamRole:
-    Description: "Implicit IAM Role created for PAC function"
-    Value: !GetAtt PACAPP.Arn
+  # PACAPPIamRole:
+  #   Description: "Implicit IAM Role created for PAC function"
+  #   Value: !GetAtt PACAPP.Arn
