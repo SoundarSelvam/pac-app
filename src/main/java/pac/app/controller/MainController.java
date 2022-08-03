@@ -36,9 +36,11 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.HttpClientConnectionManager;
 
+import javax.inject.Singleton;
 import java.io.IOException;
 import java.util.Iterator;
 
+@Singleton
 @Controller("/")
 public class MainController {
 
