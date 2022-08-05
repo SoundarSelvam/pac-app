@@ -6,6 +6,42 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.HashMap;
+import java.util.List;
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
+import com.amazonaws.services.dynamodbv2.model.Condition;
+import com.amazonaws.services.dynamodbv2.model.ScanRequest;
+import com.amazonaws.services.dynamodbv2.model.ScanResult;
+import com.amazonaws.ClientConfiguration;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
+import com.amazonaws.http.apache.client.impl.ApacheConnectionManagerFactory;
+import com.amazonaws.http.apache.client.impl.ApacheHttpClientFactory;
+import com.amazonaws.http.apache.client.impl.ConnectionManagerAwareHttpClient;
+import com.amazonaws.http.client.ConnectionManagerFactory;
+import com.amazonaws.http.client.HttpClientFactory;
+import com.amazonaws.http.conn.ClientConnectionManagerFactory;
+import com.amazonaws.http.settings.HttpClientSettings;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.document.*;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.http.client.HttpClient;
+import org.apache.http.conn.HttpClientConnectionManager;
+import javax.inject.Singleton;
+import java.io.IOException;
+import java.util.Iterator;
+import io.micronaut.http.annotation.*;
 
 @Controller("/test")
 public class EcfPostController {
@@ -17,6 +53,7 @@ public class EcfPostController {
         this.testService = primeFinderService;
     }
     @Post("/pe")
+    @Produces(MediaType.APPLICATION_JSON)
     public String saveEvent(@Body String body) {
         return body;
     }

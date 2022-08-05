@@ -2,7 +2,6 @@ package pac.app.controller;
 
 import java.util.HashMap;
 import java.util.List;
-
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
@@ -18,7 +17,6 @@ import com.amazonaws.http.client.ConnectionManagerFactory;
 import com.amazonaws.http.client.HttpClientFactory;
 import com.amazonaws.http.conn.ClientConnectionManagerFactory;
 import com.amazonaws.http.settings.HttpClientSettings;
-
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
@@ -72,7 +70,6 @@ public class MainController {
     @Post("/js")
     @Produces(MediaType.APPLICATION_JSON)
     public String saveEvent(@Body String body) {
-
         amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard()
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
                 .withRegion(Regions.AP_NORTHEAST_1).build();
