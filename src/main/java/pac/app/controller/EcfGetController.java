@@ -8,7 +8,7 @@ import org.apache.commons.logging.LogFactory;
 
 @Controller("/aws")
 public class EcfGetController {
-    private static final Log LOG = LogFactory.getLog(MainController.class);
+    private static final Log LOG = LogFactory.getLog(EcfGetController.class);
 
     @Post(value = "/book", consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_FORM_URLENCODED})
     @Status(HttpStatus.CREATED)

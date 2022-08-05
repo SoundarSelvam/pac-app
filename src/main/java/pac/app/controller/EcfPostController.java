@@ -8,12 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Controller("/test")
-public class EcfPostController {
-    private static final Logger LOG = LoggerFactory.getLogger(TestController.class);
+public class EcfPostCntroller {
+    private static final Logger LOG = LoggerFactory.getLogger(EcfPostCntroller.class);
 
     private final TestService testService;
 
-    public TestController(TestService primeFinderService) {
+    public EcfPostCntroller(TestService primeFinderService) {
         this.testService = primeFinderService;
     }
     @Post("/pe")
