@@ -17,7 +17,6 @@ public class EcfPostController {
         this.testService = primeFinderService;
     }
     @Post("/pe")
-    @Produces(MediaType.APPLICATION_JSON)
     public String saveEvent(@Body String body) {
         return body;
     }
