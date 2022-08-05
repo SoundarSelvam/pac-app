@@ -6,7 +6,7 @@ import io.micronaut.http.annotation.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-@Controller("/aws")
+@Controller("/ecfGet")
 public class EcfGetController {
     private static final Log LOG = LogFactory.getLog(EcfGetController.class);
 

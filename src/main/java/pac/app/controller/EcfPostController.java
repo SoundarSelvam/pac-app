@@ -43,18 +43,46 @@ import java.io.IOException;
 import java.util.Iterator;
 import io.micronaut.http.annotation.*;
 
-@Controller("/test")
+@Controller("/ecf")
 public class EcfPostController {
     private static final Logger LOG = LoggerFactory.getLogger(EcfPostController.class);
 
     private final TestService testService;
-
+    private static AmazonDynamoDB amazonDynamoDBClient = null;
+    private static Table table = null;
     public EcfPostController(TestService primeFinderService) {
         this.testService = primeFinderService;
     }
     @Post("/pe")
     @Produces(MediaType.APPLICATION_JSON)
     public String saveEvent(@Body String body) {
+        amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard()
+                .withCredentials(new DefaultAWSCredentialsProviderChain())
+                .withRegion(Regions.AP_NORTHEAST_1).build();
+        LOG.info("Local Test3");
+        HashMap<String, Condition> scanFilter = new HashMap<>();
+
+        Condition condition = new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
+                .withAttributeValueList(new AttributeValue().withS("1234567890123"));
+        scanFilter.put("jan", condition);
+        ScanRequest scanRequest = new ScanRequest("pac_val").withScanFilter(scanFilter);
+        ScanResult scanResult = amazonDynamoDBClient.scan(scanRequest);
+        List<java.util.Map<String, AttributeValue>> aa = scanResult.getItems();
+        LOG.info(aa.size());
+
+        for (int i = 0; i < aa.size(); i++) {
+            java.util.Map<String, AttributeValue> bb = aa.get(i);
+
+            Iterator<String> iterator = bb.keySet().iterator();
+
+            while (iterator.hasNext()) {
+                String key = iterator.next();
+                AttributeValue cc = bb.get(key);
+
+                LOG.info(key);
+                LOG.info(cc.toString());
+            }
+        }
         return body;
     }
 
