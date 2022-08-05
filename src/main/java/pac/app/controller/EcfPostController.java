@@ -8,13 +8,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Controller("/test")
-public class TestController {
+public class EcfPostController {
     private static final Logger LOG = LoggerFactory.getLogger(TestController.class);
 
     private final TestService testService;
 
     public TestController(TestService primeFinderService) {
         this.testService = primeFinderService;
+    }
+    @Post("/pe")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String saveEvent(@Body String body) {
+        return body;
     }
 
     @Get("/find/{number}")

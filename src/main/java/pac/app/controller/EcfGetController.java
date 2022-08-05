@@ -7,7 +7,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 @Controller("/aws")
-public class AwsController {
+public class EcfGetController {
     private static final Log LOG = LogFactory.getLog(MainController.class);
 
     @Post(value = "/book", consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_FORM_URLENCODED})
