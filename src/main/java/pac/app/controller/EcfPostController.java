@@ -43,11 +43,9 @@ import java.io.IOException;
 import java.util.Iterator;
 import io.micronaut.http.annotation.*;
 
-
 @Controller("/ecf")
 public class EcfPostController {
     private static final Logger LOG = LoggerFactory.getLogger(EcfPostController.class);
-
     private final TestService testService;
     private static AmazonDynamoDB amazonDynamoDBClient = null;
     private static Table table = null;
@@ -64,7 +62,7 @@ public class EcfPostController {
         AttributeValue cc = new AttributeValue();
         HashMap<String, Condition> scanFilter = new HashMap<>();
         Condition condition = new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
-                .withAttributeValueList(new AttributeValue().withS("1234567890123"));
+                .withAttributeValueList(new AttributeValue().withS("2345567ABC001"));
         scanFilter.put("jan", condition);
         ScanRequest scanRequest = new ScanRequest("pac_val").withScanFilter(scanFilter);
         ScanResult scanResult = amazonDynamoDBClient.scan(scanRequest);
