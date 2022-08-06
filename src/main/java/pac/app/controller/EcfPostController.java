@@ -43,6 +43,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import io.micronaut.http.annotation.*;
 
+
 @Controller("/ecf")
 public class EcfPostController {
     private static final Logger LOG = LoggerFactory.getLogger(EcfPostController.class);
@@ -60,30 +61,42 @@ public class EcfPostController {
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
                 .withRegion(Regions.AP_NORTHEAST_1).build();
         LOG.info("Local Test3");
+        AttributeValue cc = new AttributeValue();
         HashMap<String, Condition> scanFilter = new HashMap<>();
-
         Condition condition = new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
                 .withAttributeValueList(new AttributeValue().withS("1234567890123"));
         scanFilter.put("jan", condition);
         ScanRequest scanRequest = new ScanRequest("pac_val").withScanFilter(scanFilter);
         ScanResult scanResult = amazonDynamoDBClient.scan(scanRequest);
         List<java.util.Map<String, AttributeValue>> aa = scanResult.getItems();
-        LOG.info(aa.size());
-
+        String base_point = "";
+        String base_promotionDesc = "";
+        String base_rank = "";
         for (int i = 0; i < aa.size(); i++) {
             java.util.Map<String, AttributeValue> bb = aa.get(i);
-
             Iterator<String> iterator = bb.keySet().iterator();
-
             while (iterator.hasNext()) {
                 String key = iterator.next();
-                AttributeValue cc = bb.get(key);
-
+                cc = bb.get(key);
+                if (key.equals("PromotionDesc")) {
+                    base_promotionDesc = cc.toString().substring(4);
+                    base_promotionDesc = base_promotionDesc.substring(0, base_promotionDesc.length() - 2);
+                }
+                if (key.equals("point")) {
+                    base_point = cc.toString().substring(4);
+                    base_point = base_point.substring(0, base_point.length() - 2);
+                }
+                if (key.equals("rank")) {
+                    base_rank = cc.toString().substring(4);
+                    base_rank = base_rank.substring(0, base_rank.length() - 2);
+                }
                 LOG.info(key);
                 LOG.info(cc.toString());
+                LOG.info(base_rank);
             }
         }
-        return body;
+        String s = String.valueOf(cc);
+        return "{\"point\":\"" + base_point + "\",\"PromotionDesc\":\"" + base_promotionDesc + "\",\"rank\":\"" + base_rank + "\"}";
     }
 
     @Get("/find/{number}")
