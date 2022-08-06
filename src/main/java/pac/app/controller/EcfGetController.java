@@ -50,7 +50,7 @@ import org.apache.commons.logging.LogFactory;
 @Controller("/ecfGet")
 public class EcfGetController {
     private static final Log LOG = LogFactory.getLog(EcfGetController.class);
-
+    private static AmazonDynamoDB amazonDynamoDBClient = null;
     @Get("/pe001")
     public String getEvent(@Body String body) {
         LOG.info("Local Test7");
