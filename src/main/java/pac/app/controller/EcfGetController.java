@@ -51,9 +51,6 @@ import org.apache.commons.logging.LogFactory;
 public class EcfGetController {
     private static final Log LOG = LogFactory.getLog(EcfGetController.class);
     private static AmazonDynamoDB amazonDynamoDBClient = null;
-    amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard()
-            .withCredentials(new DefaultAWSCredentialsProviderChain())
-            .withRegion(Regions.US_EAST_1).build();
     @Get("/pe001")
     public String getEvent(@Body String body) {
         LOG.info("Local Test7");
@@ -63,6 +60,9 @@ public class EcfGetController {
         String jan = s1[1];
         String rank="2";
         LOG.info(jan + "::" + s1[1].length());
+        amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard()
+                .withCredentials(new DefaultAWSCredentialsProviderChain())
+                .withRegion(Regions.US_EAST_1).build();
         HashMap<String, Condition> scanFilter = new HashMap<>();
         Condition condition = new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
                 .withAttributeValueList(new AttributeValue().withS(jan));
