@@ -2,6 +2,7 @@ package pac.app.controller;
 
 import pac.app.dto.PrimeFinderResponse;
 import pac.app.service.TestService;
+import java.util.ArrayList;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import org.slf4j.Logger;
@@ -64,7 +65,7 @@ public class EcfPostController {
         List<AttributeValue> AttributeValues = new ArrayList<AttributeValue>();
         AttributeValues.put(new AttributeValue().withS("1234567890234"));
         AttributeValues.put(new AttributeValue().withS("2"));
-        Condition condition = new Condition().withComparisonOperator(ComparisonOperator.AND.toString())
+        Condition condition = new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
                 .withAttributeValueList(AttributeValues);
         scanFilter.put("jan",condition);
         ScanRequest scanRequest = new ScanRequest("pac_val").withScanFilter(scanFilter);
