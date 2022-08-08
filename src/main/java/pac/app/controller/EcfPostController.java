@@ -60,10 +60,14 @@ public class EcfPostController {
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
                 .withRegion(Regions.AP_NORTHEAST_1).build();
         LOG.info("Local Test3 murugan");
+        body = "jan:1234567890234";
+        LOG.info(body);
+        String [] s1 = body.split(":");
+        String jan = s1[1];
         AttributeValue cc = new AttributeValue();
         HashMap<String, Condition> scanFilter = new HashMap<>();
         Condition condition = new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
-                .withAttributeValueList(new AttributeValue().withS("2345567ABC001"));
+                .withAttributeValueList(new AttributeValue().withS(jan));
         scanFilter.put("jan",condition);
         ScanRequest scanRequest = new ScanRequest("pac_val").withScanFilter(scanFilter);
         ScanResult scanResult = amazonDynamoDBClient.scan(scanRequest);
@@ -95,7 +99,7 @@ public class EcfPostController {
             }
         }
         String s = String.valueOf(cc);
-        return "{\"point\":\"" + base_point + "\",\"PromotionDesc\":\"" + base_promotionDesc + "\",\"rank\":\"" + base_rank + "\"}";
+        return "{\"jan\":\""+ jan + "\",\"point\":\"" + base_point + "\",\"PromotionDesc\":\"" + base_promotionDesc + "\",\"rank\":\"" + base_rank + "\"}";
     }
 
     @Get("/find/{number}")
