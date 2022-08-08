@@ -58,6 +58,7 @@ public class EcfGetController {
         LOG.info(body);
         String [] s1 = body.split(":");
         String jan = s1[1];
+        String rank="2";
         LOG.info(jan + "::" + s1[1].length());
         amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard()
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
@@ -65,7 +66,9 @@ public class EcfGetController {
         HashMap<String, Condition> scanFilter = new HashMap<>();
         Condition condition = new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
                 .withAttributeValueList(new AttributeValue().withS(jan));
-        scanFilter.put("jan", condition);
+        Condition condition1 = new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
+                .withAttributeValueList(new AttributeValue().withS(rank));
+        scanFilter.put("jan", condition,"rank",condition1);
         ScanRequest scanRequest1 = new ScanRequest("pac_all").withScanFilter(scanFilter);
         ScanResult scanResult1 = amazonDynamoDBClient.scan(scanRequest1);
         List<java.util.Map<String, AttributeValue>> aa = scanResult1.getItems();
