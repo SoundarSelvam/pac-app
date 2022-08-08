@@ -50,7 +50,7 @@ public class EcfGetController {
     public String getEvent(@Body String body) {
         amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard()
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
-                .withRegion(Regions.US_EAST_1).build();
+                .withRegion(Regions.AP_NORTHEAST_1).build();
         LOG.info("Local Test7 murugan");
         body = "jan:1234567890234";
         LOG.info(body);
