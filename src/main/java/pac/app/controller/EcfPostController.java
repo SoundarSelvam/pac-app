@@ -62,7 +62,7 @@ public class EcfPostController {
         AttributeValue cc = new AttributeValue();
         HashMap<String, Condition> scanFilter = new HashMap<>();
         Condition condition = new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
-                .withAttributeValueList(new AttributeValue().withS("2345567ABC001"));
+                .withAttributeValueList(new AttributeValue().withS("1234567890234"));
         scanFilter.put("jan", condition);
         ScanRequest scanRequest = new ScanRequest("pac_val").withScanFilter(scanFilter);
         ScanResult scanResult = amazonDynamoDBClient.scan(scanRequest);

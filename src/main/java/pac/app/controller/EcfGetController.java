@@ -54,7 +54,7 @@ public class EcfGetController {
     @Get("/pe001")
     public String getEvent(@Body String body) {
         LOG.info("Local Test7");
-        body = "jan:1234567ABCDEF";
+        body = "jan:1234567890234";
         LOG.info(body);
         String [] s1 = body.split(":");
         String jan = s1[1];
@@ -69,7 +69,6 @@ public class EcfGetController {
         ScanRequest scanRequest1 = new ScanRequest("pac_all").withScanFilter(scanFilter);
         ScanResult scanResult1 = amazonDynamoDBClient.scan(scanRequest1);
         List<java.util.Map<String, AttributeValue>> aa = scanResult1.getItems();
-        LOG.info(aa.size());
         AttributeValue cc = new AttributeValue();
         String base_masterStoreCode = "";
         String base_maStoreCode = "";
