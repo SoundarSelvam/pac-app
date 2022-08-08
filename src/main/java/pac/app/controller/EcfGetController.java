@@ -113,7 +113,6 @@ public class EcfGetController {
                 "      },\n" +
                 "    ]\n" +
                 "  }\n" +
-                "}"
+                "}";
     }
-
 }
