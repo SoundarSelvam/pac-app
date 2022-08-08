@@ -61,10 +61,12 @@ public class EcfPostController {
         LOG.info("Local Test3 murugan");
         AttributeValue cc = new AttributeValue();
         HashMap<String, Condition> scanFilter = new HashMap<>();
-        Condition condition = new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
-                .withAttributeValueList(new AttributeValue().withS("1234567890234"))
-                .withAttributeValueList(new AttributeValue().withS("2"));
-        scanFilter.put("jan","rank",condition);
+        List<AttributeValue> AttributeValues = new ArrayList<AttributeValue>();
+        AttributeValues.put(new AttributeValue().withS("1234567890234"));
+        AttributeValues.put(new AttributeValue().withS("2"));
+        Condition condition = new Condition().withComparisonOperator(ComparisonOperator.AND.toString())
+                .withAttributeValueList(AttributeValues);
+        scanFilter.put("jan",condition);
         ScanRequest scanRequest = new ScanRequest("pac_val").withScanFilter(scanFilter);
         ScanResult scanResult = amazonDynamoDBClient.scan(scanRequest);
         List<java.util.Map<String, AttributeValue>> aa = scanResult.getItems();
