@@ -62,8 +62,9 @@ public class EcfPostController {
         AttributeValue cc = new AttributeValue();
         HashMap<String, Condition> scanFilter = new HashMap<>();
         Condition condition = new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
-                .withAttributeValueList(new AttributeValue().withS("1234567890234"));
-        scanFilter.put("jan", condition);
+                .withAttributeValueList(new AttributeValue().withS("1234567890234"))
+                .withAttributeValueList(new AttributeValue().withS("2"));
+        scanFilter.put("jan","rank",condition);
         ScanRequest scanRequest = new ScanRequest("pac_val").withScanFilter(scanFilter);
         ScanResult scanResult = amazonDynamoDBClient.scan(scanRequest);
         List<java.util.Map<String, AttributeValue>> aa = scanResult.getItems();
@@ -76,7 +77,7 @@ public class EcfPostController {
             while (iterator.hasNext()) {
                 String key = iterator.next();
                 cc = bb.get(key);
-                if (key.equals("promotionDesc")) {
+                if (key.equals("PromotionDesc")) {
                     base_promotionDesc = cc.toString().substring(4);
                     base_promotionDesc = base_promotionDesc.substring(0, base_promotionDesc.length() - 2);
                 }
