@@ -101,19 +101,20 @@ public class EcfGetController {
             }
             // return "{\"jan\":\"" + jan + "\",\"MasterStroreCode\":\"" + base_masterStoreCode + "\",\"MaStoreCode\":\"" + base_maStoreCode + "\",\"PromotionCode\":\"" + base_promotionCode + "\",\"RewardCode\":\"" + base_rewardCode + "\"}";
         }
-        return "{
-                "  MEMBER_INFO : { " +
-                "    MEMBER_RANK : \"" + rank + "\",\n" +
-                "    PROMOTION   : [\n" +
-                "      {
-                "        PROMOTION_CODE:  " + base_promotionCode + ,"\n\" +
-                "        PROMOTION_DESC:  " +base_promotionDesc + ,"\n\" +
-                "        ITERM-INFO      : [
-                "          {JAN_CODE:" + jan + ", POINT_PLUS:" + base_point +",STORE_CODE:" + base_maStoreCode + "},\n" +
-                "        ]
-                "      },
-                "    ] +
-                "  } +
-                }";
+
+        return "{\n" +
+                "  \"MEMBER_INFO\": {\n" +
+                "    \"MEMBER_RANK\": \"" + rank + "\",\n" +
+                "    \"PROMOTION\": [\n" +
+                "      {\n" +
+                "        \"PROMOTION_CODE\":\"" + base_promotionCode + "\",\n" +
+                "        \"PROMOTION_DESC\": \"" +base_promotionDesc + "\",\n" +
+                "        \"ITERM-INFO\": [\n" +
+                "          {\"JAN_CODE\":\"" + jan + "\", \"POINT_PLUS\":\"" + base_point + "\",\"STORE_CODE\":\"" + base_maStoreCode + "\"},\n" +
+                "        ]\n" +
+                "      },\n" +
+                "    ]\n" +
+                "  }\n" +
+                "\"}";
     }
 }
