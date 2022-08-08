@@ -105,8 +105,8 @@ public class EcfGetController {
                 "    \"MEMBER_RANK\": \"" +rank+ "\",\n" +
                 "    \"PROMOTION\": [\n" +
                 "      {\n" +
-                "        \"PROMOTION_CODE\":\""+ base_promotionCode+"\"", +
-                "        \"PROMOTION_DESC\":\"" base_promotionDesc+"\"",+
+                "        \"PROMOTION_CODE\":\""+ base_promotionCode+"\""; +
+                "        \"PROMOTION_DESC\":\"" base_promotionDesc+"\"";  +
                 "        \"ITERM-INFO\": [\n" +
                 "          {\"JAN_CODE\":\""+jan+"\"", "\"POINT_PLUS\": \""+base_point+"\"","\"STORE_CODE\": \""+base_maStoreCode}" +
                 "        ]\n" +
