@@ -51,9 +51,11 @@ import org.apache.commons.logging.LogFactory;
 public class EcfGetController {
     private static final Log LOG = LogFactory.getLog(EcfGetController.class);
     private static AmazonDynamoDB amazonDynamoDBClient = null;
+    private static Table table = null;
     @Get("/pe001")
+    @Produces(MediaType.APPLICATION_JSON)
     public String getEvent(@Body String body) {
-        LOG.info("Local Test7");
+        LOG.info("Local Test7 muru");
         body = "jan:1234567890234";
         LOG.info(body);
         String [] s1 = body.split(":");
