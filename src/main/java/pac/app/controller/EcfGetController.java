@@ -55,7 +55,7 @@ public class EcfGetController {
     @Get("/pe001")
     @Produces(MediaType.APPLICATION_JSON)
     public String getEvent(@Body String body) {
-        LOG.info("Local Test7 muru");
+        LOG.info("Local Test7 murugan");
         body = "jan:1234567890234";
         LOG.info(body);
         String [] s1 = body.split(":");
