@@ -82,16 +82,39 @@ public class EcfGetController {
                 String key = iterator.next();
                 cc = bb.get(key);
                 if (key.equals("jan")) {
-                    base_masterStoreCode = jan.substring(0,4);
-                    base_maStoreCode = jan.substring(4,6);
+                    base_masterStoreCode = jan.substring(0,5);
+                    base_maStoreCode = jan.substring(5,6);
                     base_promotionCode = jan.substring(6,10);
                     base_rewardCode = jan.substring(10);
                 }
-            }
+                if(key.equals("PromotionDesc"))
+                {
+                    base_promotionDesc = cc.toString().substring(4);
+                    base_promotionDesc = base_promotionDesc.substring(0, base_promotionDesc.length() - 2);
+                }
+                if (key.equals("point")) {
+                    base_point = cc.toString().substring(4);
+                    base_point = base_point.substring(0, base_point.length() - 2);
+                }
             LOG.info(cc.toString());
             LOG.info(base_masterStoreCode);
         }
-        return "{\"MasterStroreCode\":\"" + base_masterStoreCode + "\",\"MaStoreCode\":\"" + base_maStoreCode + "\",\"PromotionCode\":\"" + base_promotionCode + "\",\"RewardCode\":\"" + base_rewardCode + "\"}";
+       // return "{\"jan\":\"" + jan + "\",\"MasterStroreCode\":\"" + base_masterStoreCode + "\",\"MaStoreCode\":\"" + base_maStoreCode + "\",\"PromotionCode\":\"" + base_promotionCode + "\",\"RewardCode\":\"" + base_rewardCode + "\"}";
+        return  "{{\n" +
+                "  \"MEMBER_INFO\": {\n" +
+                "    \"MEMBER_RANK\": \"" +rank+ "\",\n" +
+                "    \"PROMOTION\": [\n" +
+                "      {\n" +
+                "        \"PROMOTION_CODE\":\""+ base_promotionCode+"\"", +
+                "        \"PROMOTION_DESC\":\"" base_promotionDesc+"\"",+
+                "        \"ITERM-INFO\": [\n" +
+                "          {\"JAN_CODE\":\""+jan+"\"", "\"POINT_PLUS\": \""+base_point+"\"","\"STORE_CODE\": \""+base_maStoreCode}" +
+                "        ]\n" +
+                "      },\n" +
+                "    ]\n" +
+                "  }\n" +
+                "}" +
+                "}"
     }
 
 }
