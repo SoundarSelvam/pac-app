@@ -68,6 +68,7 @@ public class EcfPostController {
         Condition condition = new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
                 .withAttributeValueList(AttributeValues);
         scanFilter.put("jan",condition);
+        scanFilter.put("rank",condition);
         ScanRequest scanRequest = new ScanRequest("pac_val").withScanFilter(scanFilter);
         ScanResult scanResult = amazonDynamoDBClient.scan(scanRequest);
         List<java.util.Map<String, AttributeValue>> aa = scanResult.getItems();
