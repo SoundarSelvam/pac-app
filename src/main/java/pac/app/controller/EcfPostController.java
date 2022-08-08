@@ -76,7 +76,7 @@ public class EcfPostController {
             while (iterator.hasNext()) {
                 String key = iterator.next();
                 cc = bb.get(key);
-                if (key.equals("PromotionDesc")) {
+                if (key.equals("promotionDesc")) {
                     base_promotionDesc = cc.toString().substring(4);
                     base_promotionDesc = base_promotionDesc.substring(0, base_promotionDesc.length() - 2);
                 }
