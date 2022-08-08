@@ -1,7 +1,4 @@
 package pac.app.controller;
-
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.HashMap;
@@ -30,25 +27,22 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.micronaut.http.MediaType;
-import io.micronaut.http.annotation.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.HttpClientConnectionManager;
-import javax.inject.Singleton;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
 import java.io.IOException;
 import java.util.Iterator;
 import io.micronaut.http.annotation.*;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 @Controller("/ecfGet")
 public class EcfGetController {
-    private static final Log LOG = LogFactory.getLog(EcfGetController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EcfGetController.class);
     private static AmazonDynamoDB amazonDynamoDBClient = null;
     private static Table table = null;
     @Get("/pe001")
