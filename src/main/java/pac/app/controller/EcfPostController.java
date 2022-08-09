@@ -44,7 +44,7 @@ import org.apache.http.conn.HttpClientConnectionManager;
 import java.io.IOException;
 import java.util.Iterator;
 import io.micronaut.http.annotation.*;
-import org.json.simple.JSONObject;
+
 
 @Controller("/ecf")
 public class EcfPostController {
@@ -119,10 +119,10 @@ public class EcfPostController {
         connection.setDoOutput(true);
         JSONObject inputObject = new JSONObject(body);
         //JSONArray subjects = (JSONArray)jsonObject.get("jan");
-        String janCode = (String)inputObject.get("jan");
-        String rank = (String)inputObject.get("rank");
-        String point = (String)inputObject.get("point");
-        String storeCode =(String)inputObject.get("storeCode");
+        String janCode = inputObject.getString("jan");
+        String rank = inputObject.getString("rank");
+        String point = inputObject.getString("point");
+        String storeCode =inputObject.getString("storeCode");
         String[] s1 = janCode.split(":");
         String jan = s1[1];
         HashMap<String, Condition> scanFilter = new HashMap<>();
