@@ -44,7 +44,7 @@ import org.apache.http.conn.HttpClientConnectionManager;
 import java.io.IOException;
 import java.util.Iterator;
 import io.micronaut.http.annotation.*;
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 
 @Controller("/ecf")
 public class EcfPostController {
