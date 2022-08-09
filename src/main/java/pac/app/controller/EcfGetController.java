@@ -104,11 +104,11 @@ public class EcfGetController {
 
         return "{\n" +
                 "  \"MEMBER_INFO\": {\n" +
-                "    \"MEMBER_RANK\": \"" + rank + "\",\n" +
+                "    \"MEMBER_RANK\":\"" + rank + "\",\n" +
                 "    \"PROMOTION\": [\n" +
                 "      {\n" +
                 "        \"PROMOTION_CODE\":\"" + base_promotionCode + "\",\n" +
-                "        \"PROMOTION_DESC\": \"" +base_promotionDesc + "\",\n" +
+                "        \"PROMOTION_DESC\":\"" + base_promotionDesc + "\",\n" +
                 "        \"ITERM-INFO\": [\n" +
                 "          {\"JAN_CODE\":\"" + jan + "\", \"POINT_PLUS\":\"" + base_point + "\",\"STORE_CODE\":\"" + base_maStoreCode + "\"},\n" +
                 "        ]\n" +
