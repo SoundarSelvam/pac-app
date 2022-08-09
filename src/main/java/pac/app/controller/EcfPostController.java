@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.net.URL;
 import java.net.*;
-import java.net.http.HttpHeaders;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
@@ -42,10 +41,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.HttpClientConnectionManager;
-import javax.inject.Singleton;
 import java.io.IOException;
 import java.util.Iterator;
 import io.micronaut.http.annotation.*;
+import org.json.*;
 
 @Controller("/ecf")
 public class EcfPostController {
