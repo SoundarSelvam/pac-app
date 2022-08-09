@@ -50,14 +50,12 @@ public class EcfPostController {
     private final TestService testService;
     private static AmazonDynamoDB amazonDynamoDBClient = null;
     private static Table table = null;
-    static HttpURLConnection connection;
-    HttpHeaders headers;
-    static URL url;
-
+    private static HttpURLConnection connection;
+    private static HttpHeaders headers;
+    private static URL url;
     public EcfPostController(TestService primeFinderService) {
         this.testService = primeFinderService;
     }
-
     @Post("/pe")
     @Produces(MediaType.APPLICATION_JSON)
     public String saveEvent(@Body String body) {
