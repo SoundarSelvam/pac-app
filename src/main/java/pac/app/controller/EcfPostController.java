@@ -44,7 +44,6 @@ import org.apache.http.conn.HttpClientConnectionManager;
 import java.io.IOException;
 import java.util.Iterator;
 import io.micronaut.http.annotation.*;
-import org.json.*;
 
 @Controller("/ecf")
 public class EcfPostController {
@@ -110,13 +109,13 @@ public class EcfPostController {
 
     @Post("/Json")
     public String postEvent(@Body String body) {
-//        url = new URL("https://3bd3af9o6a.execute-api.us-east-1.amazonaws.com/p/js");
-//        connection = (HttpURLConnection) url.openConnection();
-//        connection.setRequestMethod("POST");
-//        connection.setConnectTimeout(5000);
-//        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-//        connection.setRequestProperty("Accept", "application/json");
-//        connection.setDoOutput(true);
+        url = new URL("https://3bd3af9o6a.execute-api.us-east-1.amazonaws.com/p/js");
+        connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("POST");
+        connection.setConnectTimeout(5000);
+        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setDoOutput(true);
         JSONObject inputObject = new JSONObject(body);
         //JSONArray subjects = (JSONArray)jsonObject.get("jan");
         String janCode = (String)inputObject.get("jan");
