@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.List;
+import java.net.URL;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
@@ -50,9 +51,10 @@ public class EcfPostController {
     private final TestService testService;
     private static AmazonDynamoDB amazonDynamoDBClient = null;
     private static Table table = null;
-    private static HttpURLConnection connection;
-    private static HttpHeaders headers;
-    private static URL url;
+    static HttpURLConnection connection;
+    static HttpHeaders headers;
+    static URL url;
+
     public EcfPostController(TestService primeFinderService) {
         this.testService = primeFinderService;
     }
