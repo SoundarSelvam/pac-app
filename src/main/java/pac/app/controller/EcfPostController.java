@@ -54,7 +54,7 @@ public class EcfPostController {
     private static AmazonDynamoDB amazonDynamoDBClient = null;
     private static Table table = null;
     static HttpURLConnection connection=null;
-    HttpHeaders headers=null;
+   // HttpHeaders headers;
     static URL url;
 
     public EcfPostController(TestService primeFinderService) {
