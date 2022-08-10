@@ -109,11 +109,12 @@ public class EcfPostController {
     }
 
     @Post("/Json")
-    public String postEvent(@Body GetBody getBody) {
-     String jan = getBody.getJan();
-     String rank = getBody.getRank();
-     String body = getBody.getPoint();
-     String storeCode= getBody.getStoreCode();
+    public String postEvent(@Body GetBody getBody) throws IOException, NoSuchFieldException, IllegalAccessException {
+        url = new URL("https://3bd3af9o6a.execute-api.us-east-1.amazonaws.com/p/js");
+        String jan = getBody.getJan();
+        String rank = getBody.getRank();
+        String body = getBody.getPoint();
+        String storeCode= getBody.getStoreCode();
         HashMap<String, Condition> scanFilter = new HashMap<>();
         Condition condition = new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
                 .withAttributeValueList(new AttributeValue().withS(jan));
@@ -121,9 +122,9 @@ public class EcfPostController {
                 .withAttributeValueList(new AttributeValue().withS(rank));
         scanFilter.put("jan", condition);
         scanFilter.put("rank", condition1);
-        ScanRequest scanRequest1 = new ScanRequest("pac_all").withScanFilter(scanFilter);
-        ScanResult scanResult1 = amazonDynamoDBClient.scan(scanRequest1);
-        List<java.util.Map<String, AttributeValue>> aa = scanResult1.getItems();
+        ScanRequest scanRequest = new ScanRequest("pac_all").withScanFilter(scanFilter);
+        ScanResult scanResult = amazonDynamoDBClient.scan(scanRequest);
+        List<java.util.Map<String, AttributeValue>> aa = scanResult.getItems();
         AttributeValue cc = new AttributeValue();
         String base_masterStoreCode = "";
         String base_maStoreCode = "";
@@ -171,6 +172,7 @@ public class EcfPostController {
                 "  }\n" +
                 "\"}";
             }
+
         @Get("/find/{number}")
         public PrimeFinderResponse findPrimesBelow ( int number){
             PrimeFinderResponse resp = new PrimeFinderResponse();
