@@ -109,22 +109,11 @@ public class EcfPostController {
     }
 
     @Post("/Json")
-    public String postEvent(@Body String body) {
-        url = new URL("https://3bd3af9o6a.execute-api.us-east-1.amazonaws.com/p/js");
-//        connection = (HttpURLConnection) url.openConnection();
-//        connection.setRequestMethod("POST");
-//        connection.setConnectTimeout(5000);
-//        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-//        connection.setRequestProperty("Accept", "application/json");
-//        connection.setDoOutput(true);
-        JSONObject inputObject = new JSONObject(body);
-        //JSONArray subjects = (JSONArray)jsonObject.get("jan");
-        String janCode = (String)inputObject.get("jan");
-        String rank = (String)inputObject.get("rank");
-        String point = (String)inputObject.get("point");
-        String storeCode =(String)inputObject.get("storeCode");
-        String[] s1 = janCode.split(":");
-        String jan = s1[1];
+    public String postEvent(@Body GetBody getBody) {
+     String jan = getBody.getJan();
+     String rank = getBody.getRank();
+     String body = getBody.getPoint();
+     String storeCode= getBody.getStoreCode();
         HashMap<String, Condition> scanFilter = new HashMap<>();
         Condition condition = new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
                 .withAttributeValueList(new AttributeValue().withS(jan));
