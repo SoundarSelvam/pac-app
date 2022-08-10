@@ -119,10 +119,10 @@ public class EcfPostController {
 //        connection.setDoOutput(true);
         JSONObject inputObject = new JSONObject(body);
         //JSONArray subjects = (JSONArray)jsonObject.get("jan");
-        String janCode = inputObject.getString("jan");
-        String rank = inputObject.getString("rank");
-        String point = inputObject.getString("point");
-        String storeCode =inputObject.getString("storeCode");
+        String janCode = inputObject.get("jan");
+        String rank = inputObject.get("rank");
+        String point = inputObject.get("point");
+        String storeCode =inputObject.get("storeCode");
         String[] s1 = janCode.split(":");
         String jan = s1[1];
         HashMap<String, Condition> scanFilter = new HashMap<>();
