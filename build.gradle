@@ -50,6 +50,7 @@ dependencies {
     testRuntime "org.junit.jupiter:junit-jupiter-engine"
     testRuntime "org.jetbrains.spek:spek-junit-platform-engine:1.1.5"
     compile group: 'org.json', name: 'json', version: '20180813'
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 }
 
 shadowJar {
