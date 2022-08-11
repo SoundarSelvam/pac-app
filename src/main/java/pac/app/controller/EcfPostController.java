@@ -2,7 +2,6 @@ package pac.app.controller;
 
 import pac.app.dto.PrimeFinderResponse;
 import pac.app.service.TestService;
-import java.util.ArrayList;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import org.slf4j.Logger;
@@ -17,24 +16,20 @@ import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
 import com.amazonaws.services.dynamodbv2.model.Condition;
 import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
-import com.amazonaws.ClientConfiguration;
+//import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
-import com.amazonaws.http.apache.client.impl.ApacheConnectionManagerFactory;
-import com.amazonaws.http.apache.client.impl.ApacheHttpClientFactory;
-import com.amazonaws.http.apache.client.impl.ConnectionManagerAwareHttpClient;
-import com.amazonaws.http.client.ConnectionManagerFactory;
-import com.amazonaws.http.client.HttpClientFactory;
-import com.amazonaws.http.conn.ClientConnectionManagerFactory;
-import com.amazonaws.http.settings.HttpClientSettings;
+//import com.amazonaws.http.apache.client.impl.ApacheConnectionManagerFactory;
+//import com.amazonaws.http.apache.client.impl.ApacheHttpClientFactory;
+//import com.amazonaws.http.apache.client.impl.ConnectionManagerAwareHttpClient;
+//import com.amazonaws.http.client.ConnectionManagerFactory;
+//import com.amazonaws.http.client.HttpClientFactory;
+//import com.amazonaws.http.conn.ClientConnectionManagerFactory;
+//import com.amazonaws.http.settings.HttpClientSettings;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.document.*;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
 import org.apache.commons.logging.Log;
@@ -44,7 +39,6 @@ import org.apache.http.conn.HttpClientConnectionManager;
 import java.io.IOException;
 import java.util.Iterator;
 import io.micronaut.http.annotation.*;
-import org.json.simple.JSONObject;
 import pac.app.dto.GetBody;
 
 @Controller("/ecf")
@@ -56,7 +50,6 @@ public class EcfPostController {
     static HttpURLConnection connection=null;
    // HttpHeaders headers;
     static URL url;
-
     public EcfPostController(TestService primeFinderService) {
         this.testService = primeFinderService;
     }
@@ -111,7 +104,7 @@ public class EcfPostController {
 
     @Post("/Json")
     public String postEvent(@Body GetBody getBody) throws IOException, NoSuchFieldException, IllegalAccessException {
-        url = new URL("https://3bd3af9o6a.execute-api.us-east-1.amazonaws.com/p/js");
+        //url = new URL("https://3bd3af9o6a.execute-api.us-east-1.amazonaws.com/p/js");
         amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard()
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
                 .withRegion(Regions.AP_NORTHEAST_1).build();

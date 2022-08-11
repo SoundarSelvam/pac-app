@@ -15,7 +15,6 @@ repositories {
     mavenCentral()
     maven { url = "https://jcenter.bintray.com" }
 }
-
 dependencyManagement {
     imports {
         mavenBom 'io.micronaut:micronaut-bom:1.1.0.M2'
