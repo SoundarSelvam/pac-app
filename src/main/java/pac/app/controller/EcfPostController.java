@@ -112,6 +112,9 @@ public class EcfPostController {
     @Post("/Json")
     public String postEvent(@Body GetBody getBody) throws IOException, NoSuchFieldException, IllegalAccessException {
         url = new URL("https://3bd3af9o6a.execute-api.us-east-1.amazonaws.com/p/js");
+        amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard()
+                .withCredentials(new DefaultAWSCredentialsProviderChain())
+                .withRegion(Regions.AP_NORTHEAST_1).build();
         String jan = getBody.getJan();
         String rank = getBody.getRank();
         String point = getBody.getPoint();
