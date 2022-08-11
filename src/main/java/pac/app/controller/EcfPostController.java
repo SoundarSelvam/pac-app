@@ -114,8 +114,8 @@ public class EcfPostController {
         url = new URL("https://3bd3af9o6a.execute-api.us-east-1.amazonaws.com/p/js");
         String jan = getBody.getJan();
         String rank = getBody.getRank();
-        String body = getBody.getPoint();
-        String storeCode= getBody.getStoreCode();
+        String point = getBody.getPoint();
+        //String storeCode= getBody.getStoreCode();
         HashMap<String, Condition> scanFilter = new HashMap<>();
         Condition condition = new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
                 .withAttributeValueList(new AttributeValue().withS(jan));

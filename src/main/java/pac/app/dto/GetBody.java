@@ -10,8 +10,8 @@ public class GetBody {
     private String rank;
     @NotBlank
     private String point;
-    @NotBlank
-    private String storeCode;
+//    @NotBlank
+//    private String storeCode;
     public GetBody() {
     }
     public String getJan() {
@@ -35,10 +35,10 @@ public class GetBody {
         this.point = point;
     }
 
-    public String getStoreCode() {
-        return storeCode;
-    }
-    public void setStoreCode(String storeCode) {
-        this.storeCode = storeCode;
-    }
+//    public String getStoreCode() {
+//        return storeCode;
+//    }
+//    public void setStoreCode(String storeCode) {
+//        this.storeCode = storeCode;
+//    }
 }
