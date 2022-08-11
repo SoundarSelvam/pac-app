@@ -111,6 +111,7 @@ public class EcfPostController {
         String jan = getBody.getJan();
         String rank = getBody.getRank();
         String point = getBody.getPoint();
+        LOG.info("Local Test4 murugan");
         //String storeCode= getBody.getStoreCode();
         HashMap<String, Condition> scanFilter = new HashMap<>();
         Condition condition = new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
