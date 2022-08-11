@@ -13,7 +13,7 @@ group "pac.app"
 repositories {
     mavenLocal()
     mavenCentral()
-    maven { url "https://jcenter.bintray.com" }
+    maven { url = "https://jcenter.bintray.com" }
 }
 
 dependencyManagement {
@@ -37,7 +37,7 @@ dependencies {
     }
     compile "io.micronaut:micronaut-http-server-netty"
     compile "io.micronaut:micronaut-runtime"
-    compile 'com.amazonaws:aws-java-sdk-dynamodb:1.11.1009'
+    compile 'com.amazonaws:aws-java-sdk-dynamodb:1.11.1000'
     compileOnly "com.oracle.substratevm:svm"
     kapt "io.micronaut:micronaut-inject-java"
     kapt "io.micronaut:micronaut-validation"
@@ -52,11 +52,9 @@ dependencies {
     compile group: 'org.json', name: 'json', version: '20180813'
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 }
-
 shadowJar {
     mergeServiceFiles()
 }
-
 run.classpath += configurations.developmentOnly
 test.classpath += configurations.developmentOnly
 run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1')
