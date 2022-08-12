@@ -193,4 +193,9 @@ public class EcfPostController {
             resp.setPrimes(testService.findPrimesLessThan(number));
             return resp;
         }
+
+        @Get("/test")
+        public String test() {
+            return "successfully tested";
+        }
     }
