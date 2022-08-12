@@ -48,7 +48,6 @@ public class EcfPostController {
     private static AmazonDynamoDB amazonDynamoDBClient = null;
     private static Table table = null;
     static HttpURLConnection connection=null;
-   // HttpHeaders headers;
     static URL url;
     public EcfPostController(TestService primeFinderService) {
         this.testService = primeFinderService;
@@ -109,10 +108,14 @@ public class EcfPostController {
         amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard()
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
                 .withRegion(Regions.AP_NORTHEAST_1).build();
-        String jan = getBody.getJan();
-        String rank = getBody.getRank();
-        String point = getBody.getPoint();
+//        String jan = getBody.getJan();
+//        String rank = getBody.getRank();
+//        String point = getBody.getPoint();
+        String jan = "1234567890234";
+        String rank = "2";
+        String point ="700";
         LOG.info("Local Test4 murugan");
+        System.out.println(getBody.getJan());
         LOG.info(jan);
         //String storeCode= getBody.getStoreCode();
         HashMap<String, Condition> scanFilter = new HashMap<>();
