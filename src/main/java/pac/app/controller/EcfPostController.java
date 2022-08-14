@@ -102,19 +102,19 @@ public class EcfPostController {
     }
     @Post("/pepost")
     @Produces(MediaType.APPLICATION_JSON)
-    public String postEvent(@Body GetBody body) {
+    public String postEvent() {
         //url = new URL("https://3bd3af9o6a.execute-api.us-east-1.amazonaws.com/p/js");
         amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard()
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
                 .withRegion(Regions.AP_NORTHEAST_1).build();
-        String jan = body.getJan();
-        String rank = body.getRank();
-        String point = body.getPoint();
-        // String jan = "1234567890234";
-//        String rank = "2";
-//        String point ="700";
+//        String jan = body.getJan();
+//        String rank = body.getRank();
+//        String point = body.getPoint();
+        String jan = "1234567890234";
+        String rank = "2";
+        String point ="700";
         LOG.info("Local_Test4_murugan");
-        System.out.println(body.getJan());
+       // System.out.println(body.getJan());
         LOG.info(jan);
         //String storeCode= getBody.getStoreCode();
         HashMap<String, Condition> scanFilter = new HashMap<>();
