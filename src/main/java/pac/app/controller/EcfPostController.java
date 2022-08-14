@@ -118,15 +118,10 @@ public class EcfPostController {
         LOG.info(jan);
         //String storeCode= getBody.getStoreCode();
         HashMap<String, Condition> scanFilter = new HashMap<>();
-        Condition condition = new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
-                .withAttributeValueList(new AttributeValue().withS(jan));
-        Condition condition1 = new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
-                .withAttributeValueList(new AttributeValue().withS(rank));
-        Condition condition2 = new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
-                .withAttributeValueList(new AttributeValue().withS(point));
-        scanFilter.put("jan", condition);
-        scanFilter.put("rank", condition1);
-        scanFilter.put("point",condition2);
+        scanFilter.put("jan", new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
+                        .withAttributeValueList(new AttributeValue().withS(jan)));
+        scanFilter.put("rank", new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
+                .withAttributeValueList(new AttributeValue().withS(rank)));
         ScanRequest scanRequest = new ScanRequest("pac_all").withScanFilter(scanFilter);
         ScanResult scanResult = amazonDynamoDBClient.scan(scanRequest);
         List<java.util.Map<String, AttributeValue>> aa = scanResult.getItems();
@@ -136,6 +131,8 @@ public class EcfPostController {
         String base_promotionCode = "";
         String base_promotionDesc = "";
         String base_point = "";
+        String s = jan.substring(0,5);
+        LOG.info(s);
         for (int i = 1; i < aa.size(); i++) {
             java.util.Map<String, AttributeValue> bb = aa.get(i);
             Iterator<String> iterator = bb.keySet().iterator();
