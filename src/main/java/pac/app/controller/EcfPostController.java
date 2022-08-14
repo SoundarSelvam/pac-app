@@ -110,6 +110,7 @@ public class EcfPostController {
                 .withRegion(Regions.AP_NORTHEAST_1).build();
         String jan = body.getJan();
         String rank=body.getRank();
+        String point = body.getPoint();
         // String jan = "1234567890234";
 //        String rank = "2";
 //        String point ="700";
@@ -122,8 +123,11 @@ public class EcfPostController {
                 .withAttributeValueList(new AttributeValue().withS(jan));
         Condition condition1 = new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
                 .withAttributeValueList(new AttributeValue().withS(rank));
+        Condition condition2 = new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
+                .withAttributeValueList(new AttributeValue().withS(point));
         scanFilter.put("jan", condition);
         scanFilter.put("rank", condition1);
+        scanFilter.put("point",condition2);
         ScanRequest scanRequest = new ScanRequest("pac_all").withScanFilter(scanFilter);
         ScanResult scanResult = amazonDynamoDBClient.scan(scanRequest);
         List<java.util.Map<String, AttributeValue>> aa = scanResult.getItems();
