@@ -151,10 +151,10 @@ public class EcfPostController {
                     base_promotionDesc = cc.toString().substring(4);
                     base_promotionDesc = base_promotionDesc.substring(0, base_promotionDesc.length() - 2);
                 }
-                if (key.equals("point")) {
-                    base_point = cc.toString().substring(4);
-                    base_point = base_point.substring(0, base_point.length() - 2);
-                }
+//                if (key.equals("point")) {
+//                    base_point = cc.toString().substring(4);
+//                    base_point = base_point.substring(0, base_point.length() - 2);
+//                }
                 LOG.info(cc.toString());
                 LOG.info(base_masterStoreCode);
             }
