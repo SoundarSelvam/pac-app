@@ -147,6 +147,7 @@ public class EcfPostController {
                     base_maStoreCode = jan.substring(5, 6);
                     base_promotionCode = jan.substring(6, 10);
                 }
+                LOG.info(base_masterStoreCode);
                 if (key.equals("PromotionDesc")) {
                     base_promotionDesc = cc.toString().substring(4);
                     base_promotionDesc = base_promotionDesc.substring(0, base_promotionDesc.length() - 2);
