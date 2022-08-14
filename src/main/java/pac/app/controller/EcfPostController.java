@@ -122,6 +122,8 @@ public class EcfPostController {
                         .withAttributeValueList(new AttributeValue().withS(jan)));
         scanFilter.put("rank", new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
                 .withAttributeValueList(new AttributeValue().withS(rank)));
+        scanFilter.put("point", new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
+                .withAttributeValueList(new AttributeValue().withS(point)));
         ScanRequest scanRequest = new ScanRequest("pac_all").withScanFilter(scanFilter);
         ScanResult scanResult = amazonDynamoDBClient.scan(scanRequest);
         List<java.util.Map<String, AttributeValue>> aa = scanResult.getItems();
@@ -146,7 +148,6 @@ public class EcfPostController {
                 }
                 LOG.info(base_masterStoreCode);
                 if (key.equals("promotionDesc")) {
-                      //base_promotionDesc = cc.toString();
                     base_promotionDesc = cc.toString().substring(4);
                     base_promotionDesc = base_promotionDesc.substring(0, base_promotionDesc.length() - 2);
                 }
