@@ -103,19 +103,18 @@ public class EcfPostController {
 
     @Post("/Json")
     @Produces(MediaType.APPLICATION_JSON)
-    public String postEvent(@Body GetBody getBody) {
+    public String postEvent(@Body GetBody body) {
         //url = new URL("https://3bd3af9o6a.execute-api.us-east-1.amazonaws.com/p/js");
         amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard()
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
                 .withRegion(Regions.AP_NORTHEAST_1).build();
-//        String jan = getBody.getJan();
-//        String rank = getBody.getRank();
-//        String point = getBody.getPoint();
-        String jan = "1234567890234";
-        String rank = "2";
-        String point ="700";
+        String jan = body.getJan();
+        String rank=body.getRank();
+        // String jan = "1234567890234";
+//        String rank = "2";
+//        String point ="700";
         LOG.info("Local Test4 murugan");
-        System.out.println(getBody.getJan());
+        System.out.println(body.getJan());
         LOG.info(jan);
         //String storeCode= getBody.getStoreCode();
         HashMap<String, Condition> scanFilter = new HashMap<>();
@@ -128,11 +127,10 @@ public class EcfPostController {
         ScanRequest scanRequest = new ScanRequest("pac_all").withScanFilter(scanFilter);
         ScanResult scanResult = amazonDynamoDBClient.scan(scanRequest);
         List<java.util.Map<String, AttributeValue>> aa = scanResult.getItems();
-        AttributeValue cc = new AttributeValue();
+        AttributeValue cc;
         String base_masterStoreCode = "";
         String base_maStoreCode = "";
         String base_promotionCode = "";
-        String base_rewardCode = "";
         String base_promotionDesc = "";
         String base_point = "";
         for (int i = 1; i < aa.size(); i++) {
@@ -145,7 +143,6 @@ public class EcfPostController {
                     base_masterStoreCode = jan.substring(0, 5);
                     base_maStoreCode = jan.substring(5, 6);
                     base_promotionCode = jan.substring(6, 10);
-                    base_rewardCode = jan.substring(10);
                 }
                 if (key.equals("PromotionDesc")) {
                     base_promotionDesc = cc.toString().substring(4);
