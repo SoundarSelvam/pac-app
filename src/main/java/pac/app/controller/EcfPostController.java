@@ -109,9 +109,10 @@ public class EcfPostController {
                 .withRegion(Regions.AP_NORTHEAST_1).build();
 //        String jan = body.getJan();
 //        String rank = body.getRank();
-//        String point = body.getPoint();
+        //String point = body.getPoint();
         String jan = "1234567890234";
         String rank = "2";
+        String point="800";
         LOG.info("Local_Test4_murugan");
         LOG.info(jan);
         HashMap<String, Condition> scanFilter = new HashMap<>();
@@ -119,6 +120,8 @@ public class EcfPostController {
                         .withAttributeValueList(new AttributeValue().withS(jan)));
         scanFilter.put("rank", new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
                 .withAttributeValueList(new AttributeValue().withS(rank)));
+        scanFilter.put("point", new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
+                .withAttributeValueList(new AttributeValue().withN(point)));
         ScanRequest scanRequest = new ScanRequest("pac_all").withScanFilter(scanFilter);
         ScanResult scanResult = amazonDynamoDBClient.scan(scanRequest);
         List<java.util.Map<String, AttributeValue>> aa = scanResult.getItems();
