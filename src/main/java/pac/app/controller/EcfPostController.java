@@ -109,20 +109,16 @@ public class EcfPostController {
                 .withRegion(Regions.AP_NORTHEAST_1).build();
         LOG.info(body);
         String[] j = body.split(":");
-        String jan =j[1];
+        String jan =j[1].substring(1,j[1].length()-2);
         LOG.info(jan);
-        String janLength = jan.substring(0,jan.length()-2);
-        LOG.info(janLength);
 //        String rank = getBody.getRank();
 //        String point = getBody.getPoint();
 //        String jan = "1234567890234";
         String rank = "2";
-//        String pk="88881P2222R66";
         LOG.info("Local_Test4_murugan");
-        //LOG.info(janLength);
         HashMap<String, Condition> scanFilter = new HashMap<>();
         scanFilter.put("jan", new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
-                        .withAttributeValueList(new AttributeValue().withS(janLength)));
+                        .withAttributeValueList(new AttributeValue().withS(jan)));
         scanFilter.put("rank", new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
                 .withAttributeValueList(new AttributeValue().withS(rank)));
         ScanRequest scanRequest = new ScanRequest("pac_all").withScanFilter(scanFilter);
