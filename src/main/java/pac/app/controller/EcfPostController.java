@@ -115,12 +115,15 @@ public class EcfPostController {
 //        String point = getBody.getPoint();
 //        String jan = "1234567890234";
         String rank = "2";
+        String point = "800";
         LOG.info("Local_Test4_murugan");
         HashMap<String, Condition> scanFilter = new HashMap<>();
         scanFilter.put("jan", new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
                         .withAttributeValueList(new AttributeValue().withS(jan)));
         scanFilter.put("rank", new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
                 .withAttributeValueList(new AttributeValue().withS(rank)));
+        scanFilter.put("point", new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
+                .withAttributeValueList(new AttributeValue().withS(point)));
         ScanRequest scanRequest = new ScanRequest("pac_all").withScanFilter(scanFilter);
         ScanResult scanResult = amazonDynamoDBClient.scan(scanRequest);
         List<java.util.Map<String, AttributeValue>> aa = scanResult.getItems();
@@ -130,7 +133,8 @@ public class EcfPostController {
         String base_promotionCode = "";
         String base_promotionDesc = "";
         String base_point = "";
-        String s = jan.substring(1,6);
+        String base_rewardCode="";
+        String s = jan.substring(0,5);
         LOG.info(s);
         for (int i = 1; i < aa.size(); i++) {
             java.util.Map<String, AttributeValue> bb = aa.get(i);
@@ -139,19 +143,20 @@ public class EcfPostController {
                 String key = iterator.next();
                 cc = bb.get(key);
                 if (key.equals("jan")) {
-                    base_masterStoreCode = jan.substring(1, 6);
-                    base_maStoreCode = jan.substring(6, 7);
-                    base_promotionCode = jan.substring(7, 11);
+                    base_masterStoreCode = jan.substring(0, 5);
+                    base_maStoreCode = jan.substring(5, 6);
+                    base_promotionCode = jan.substring(6, 10);
+                    base_rewardCode = jan.substring(10);
                 }
                 LOG.info(base_masterStoreCode);
                 if (key.equals("promotionDesc")) {
                     base_promotionDesc = cc.toString().substring(4);
                     base_promotionDesc = base_promotionDesc.substring(0, base_promotionDesc.length() - 2);
                 }
-//                if (key.equals("point")) {
-//                    base_point = cc.toString().substring(4);
-//                    base_point = base_point.substring(0, base_point.length() - 2);
-//                }
+                if (key.equals("point")) {
+                    base_point = cc.toString().substring(4);
+                    base_point = base_point.substring(0, base_point.length() - 2);
+                }
                 LOG.info(cc.toString());
                 LOG.info(base_masterStoreCode);
             }
