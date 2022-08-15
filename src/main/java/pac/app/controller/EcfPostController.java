@@ -107,6 +107,7 @@ public class EcfPostController {
         amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard()
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
                 .withRegion(Regions.AP_NORTHEAST_1).build();
+        LOG.info(jan1);
         String[] j = jan1.split(":");
         String jan =j[1];
 //        String rank = getBody.getRank();
