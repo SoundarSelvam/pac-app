@@ -102,16 +102,17 @@ public class EcfPostController {
     }
     @Post("/pepost")
     @Produces(MediaType.APPLICATION_JSON)
-    public String postEvent(@Body GetBody getBody) {
+    public String postEvent(@Body String jan1) {
         //url = new URL("https://3bd3af9o6a.execute-api.us-east-1.amazonaws.com/p/js");
         amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard()
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
                 .withRegion(Regions.AP_NORTHEAST_1).build();
-        String jan = getBody.getJan();
-        String rank = getBody.getRank();
-        String point = getBody.getPoint();
+        String[] j = jan1.split(":");
+        String jan =j[1];
+//        String rank = getBody.getRank();
+//        String point = getBody.getPoint();
 //        String jan = "1234567890234";
-//        String rank = "2";
+        String rank = "2";
 //        String pk="88881P2222R66";
         LOG.info("Local_Test4_murugan");
         LOG.info(jan);
