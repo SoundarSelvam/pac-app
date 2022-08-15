@@ -102,24 +102,27 @@ public class EcfPostController {
     }
     @Post("/pepost")
     @Produces(MediaType.APPLICATION_JSON)
-    public String postEvent(@Body String jan1) {
+    public String postEvent(@Body String body) {
         //url = new URL("https://3bd3af9o6a.execute-api.us-east-1.amazonaws.com/p/js");
         amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard()
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
                 .withRegion(Regions.AP_NORTHEAST_1).build();
-        LOG.info(jan1);
-        String[] j = jan1.split(":");
+        LOG.info(body);
+        String[] j = body.split(":");
         String jan =j[1];
+        LOG.info(jan);
+        String janLength = jan.substring(0,jan.length()-2);
+        LOG.info(janLength);
 //        String rank = getBody.getRank();
 //        String point = getBody.getPoint();
 //        String jan = "1234567890234";
         String rank = "2";
 //        String pk="88881P2222R66";
         LOG.info("Local_Test4_murugan");
-        LOG.info(jan);
+        //LOG.info(janLength);
         HashMap<String, Condition> scanFilter = new HashMap<>();
         scanFilter.put("jan", new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
-                        .withAttributeValueList(new AttributeValue().withS(jan)));
+                        .withAttributeValueList(new AttributeValue().withS(janLength)));
         scanFilter.put("rank", new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
                 .withAttributeValueList(new AttributeValue().withS(rank)));
         ScanRequest scanRequest = new ScanRequest("pac_all").withScanFilter(scanFilter);
@@ -131,7 +134,7 @@ public class EcfPostController {
         String base_promotionCode = "";
         String base_promotionDesc = "";
         String base_point = "";
-        String s = jan.substring(0,5);
+        String s = jan.substring(1,6);
         LOG.info(s);
         for (int i = 1; i < aa.size(); i++) {
             java.util.Map<String, AttributeValue> bb = aa.get(i);
@@ -140,9 +143,9 @@ public class EcfPostController {
                 String key = iterator.next();
                 cc = bb.get(key);
                 if (key.equals("jan")) {
-                    base_masterStoreCode = jan.substring(0, 5);
-                    base_maStoreCode = jan.substring(5, 6);
-                    base_promotionCode = jan.substring(6, 10);
+                    base_masterStoreCode = jan.substring(1, 6);
+                    base_maStoreCode = jan.substring(6, 7);
+                    base_promotionCode = jan.substring(7, 11);
                 }
                 LOG.info(base_masterStoreCode);
                 if (key.equals("promotionDesc")) {
