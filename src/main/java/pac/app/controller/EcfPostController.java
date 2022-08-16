@@ -113,7 +113,8 @@ public class EcfPostController {
         //String rank =j[2].substring(8,j[2].length()-1);
         //String point =j[3].substring(9,j[3].length()-1);
         LOG.info(jan);
-        //LOG.info(rank);
+        LOG.info(j[2]);
+        LOG.info(j[3]);
 //        String rank = getBody.getRank();
 //        String point = getBody.getPoint();
 //        String jan = "1234567890234";
