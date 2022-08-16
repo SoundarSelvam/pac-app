@@ -10,7 +10,6 @@ public class Promotion {
 
     @JsonProperty("PROMOTION_DESC")
     private String promotionDesc;
-
     @JsonProperty("ITERM-INFO")
     private ItermInfo itermInfo;
 
@@ -38,5 +37,12 @@ public class Promotion {
         this.itermInfo = itermInfo;
     }
 
-
+    @Override
+    public String toString() {
+        return "Promotion{" +
+                "promotionCode='" + promotionCode + '\'' +
+                ", promotionDesc='" + promotionDesc + '\'' +
+                ", itermInfo=" + itermInfo +
+                '}';
+    }
 }

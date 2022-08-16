@@ -39,4 +39,12 @@ public class ItermInfo {
         this.storeCode = storeCode;
     }
 
+    @Override
+    public String toString() {
+        return "ItermInfo{" +
+                "janCode='" + janCode + '\'' +
+                ", pointPlus='" + pointPlus + '\'' +
+                ", storeCode='" + storeCode + '\'' +
+                '}';
+    }
 }

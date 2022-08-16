@@ -39,4 +39,13 @@ public class MemberInfo {
     public void setPromotion(List<Promotion> promotion) {
         this.promotion = promotion;
     }
+
+    @Override
+    public String toString() {
+        return "MemberInfo{" +
+                "memberRank='" + memberRank + '\'' +
+                ", pointAll='" + pointAll + '\'' +
+                ", promotion=" + promotion +
+                '}';
+    }
 }

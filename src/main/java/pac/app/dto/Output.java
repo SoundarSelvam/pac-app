@@ -14,16 +14,21 @@ public class Output {
     public String getKindCd() {
         return kindCd;
     }
-
     public void setKindCd(String kindCd) {
         this.kindCd = kindCd;
     }
-
     public MemberInfo getMemberInfo() {
         return memberInfo;
     }
-
     public void setMemberInfo(MemberInfo memberInfo) {
         this.memberInfo = memberInfo;
+    }
+
+    @Override
+    public String toString() {
+        return "Output{" +
+                "kindCd='" + kindCd + '\'' +
+                ", memberInfo=" + memberInfo +
+                '}';
     }
 }

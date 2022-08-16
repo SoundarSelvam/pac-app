@@ -173,7 +173,6 @@ public class EcfPostController {
         promotion.setPromotionCode(base_promotionCode);
         promotion.setPromotionDesc(base_promotionDesc);
         promotion.setItermInfo(itermInfo);
-
         List<Promotion>  promotions = new ArrayList<>();
         promotions.add(promotion);
 
@@ -186,6 +185,7 @@ public class EcfPostController {
         output.setKindCd("PAC");
         output.setMemberInfo(memberInfo);
 
+        LOG.info("output is :{} ", output);
         return output;
 //        return "{\n" +
 //                "  \"MEMBER_INFO\": {\n" +
