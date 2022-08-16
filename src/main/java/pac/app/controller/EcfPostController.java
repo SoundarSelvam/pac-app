@@ -110,13 +110,13 @@ public class EcfPostController {
         LOG.info(body);
         String[] j = body.split(",");
         String jan =j[1].substring(8,j[1].length()-1);
-//        String rank =j[2].substring(1,j[2].length()-2);
-//        String point =j[3].substring(1,j[3].length()-2);
+        String rank =j[2].substring(1,j[2].length()-1);
+        String point =j[3].substring(1,j[3].length()-1);
         LOG.info(jan);
 //        String rank = getBody.getRank();
 //        String point = getBody.getPoint();
 //        String jan = "1234567890234";
-         String rank = "2";
+         //String rank = "2";
 //        //String point = "800";
         LOG.info("Local_Test4_murugan");
         HashMap<String, Condition> scanFilter = new HashMap<>();
