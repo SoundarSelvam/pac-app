@@ -102,29 +102,31 @@ public class EcfPostController {
         return "{\"jan\":\"" + jan + "\",\"point\":\"" + base_point + "\",\"PromotionDesc\":\"" + base_promotionDesc + "\",\"rank\":\"" + base_rank + "\"}";
     }
     @Post("/pepost")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Output postEvent(@Body String body) {
+    public Output postEvent(@Body GetBody body) {
         //url = new URL("https://3bd3af9o6a.execute-api.us-east-1.amazonaws.com/p/js");
         amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard()
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
                 .withRegion(Regions.AP_NORTHEAST_1).build();
-        LOG.info(body);
-        String[] j = body.split(",");
-        String jan = j[0].substring(8,j[0].length()-1);
-        String rank =j[1].substring(8,j[1].length()-1);
-        String point =j[2].substring(9,j[2].length()-2);
-        LOG.info(j[0]);
-        LOG.info(j[1]);
-        LOG.info(j[2]);
-        LOG.info(jan);
-        LOG.info(rank);
-        LOG.info(point);
+        LOG.info(String.valueOf(body));
+        LOG.info("Jan Value : {}", body.getJan());
+//        String[] j = body.split(",");
+//        String jan = j[0].substring(8,j[0].length()-1);
+//        String rank =j[1].substring(8,j[1].length()-1);
+//        String point =j[2].substring(9,j[2].length()-2);
+//        LOG.info(j[0]);
+//        LOG.info(j[1]);
+//        LOG.info(j[2]);
+//        LOG.info(jan);
+//        LOG.info(rank);
+//        LOG.info(point);
         LOG.info("Local_Test4_murugan");
         HashMap<String, Condition> scanFilter = new HashMap<>();
         scanFilter.put("jan", new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
-                        .withAttributeValueList(new AttributeValue().withS(jan)));
+                        .withAttributeValueList(new AttributeValue().withS(body.getJan())));
         scanFilter.put("rank", new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
-                .withAttributeValueList(new AttributeValue().withS(rank)));
+                .withAttributeValueList(new AttributeValue().withS(body.getRank())));
         ScanRequest scanRequest = new ScanRequest("pac_all").withScanFilter(scanFilter);
         ScanResult scanResult = amazonDynamoDBClient.scan(scanRequest);
         List<java.util.Map<String, AttributeValue>> aa = scanResult.getItems();
@@ -135,7 +137,7 @@ public class EcfPostController {
         String base_promotionDesc = "";
         String base_point = "";
         String base_rewardCode="";
-        String s = jan.substring(0,5);
+        String s = body.getJan().substring(0,5);
         LOG.info(s);
         for (int i = 1; i < aa.size(); i++) {
             java.util.Map<String, AttributeValue> bb = aa.get(i);
@@ -144,10 +146,10 @@ public class EcfPostController {
                 String key = iterator.next();
                 cc = bb.get(key);
                 if (key.equals("jan")) {
-                    base_masterStoreCode = jan.substring(0, 5);
-                    base_maStoreCode = jan.substring(5, 6);
-                    base_promotionCode = jan.substring(6, 10);
-                    base_rewardCode = jan.substring(10);
+                    base_masterStoreCode = body.getJan().substring(0, 5);
+                    base_maStoreCode = body.getJan().substring(5, 6);
+                    base_promotionCode = body.getJan().substring(6, 10);
+                    base_rewardCode = body.getJan().substring(10);
                 }
                 LOG.info(base_masterStoreCode);
                 if (key.equals("promotionDesc")) {
@@ -165,7 +167,8 @@ public class EcfPostController {
         }
 
         ItermInfo itermInfo = new ItermInfo();
-        itermInfo.setJanCode(jan);
+//        itermInfo.setJanCode(jan);
+        itermInfo.setJanCode(body.getJan());
         itermInfo.setPointPlus("800");
         itermInfo.setStoreCode(base_maStoreCode);
 
@@ -177,14 +180,15 @@ public class EcfPostController {
         promotions.add(promotion);
 
         MemberInfo memberInfo = new MemberInfo();
-        memberInfo.setMemberRank(rank);
-        memberInfo.setPointAll(point);
+//        memberInfo.setMemberRank(rank);
+//        memberInfo.setPointAll(point);
+        memberInfo.setMemberRank(body.getRank());
+        memberInfo.setPointAll(body.getPoint());
         memberInfo.setPromotion(promotions);
 
         Output output = new Output();
         output.setKindCd("PAC");
         output.setMemberInfo(memberInfo);
-
         LOG.info("output is :{} ", output);
         return output;
 //        return "{\n" +

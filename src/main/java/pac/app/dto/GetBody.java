@@ -12,8 +12,6 @@ public class GetBody {
     private String point;
 //    @NotBlank
 //    private String storeCode;
-    public GetBody() {
-    }
     public String getJan() {
         return jan;
     }
@@ -41,4 +39,14 @@ public class GetBody {
 //    public void setStoreCode(String storeCode) {
 //        this.storeCode = storeCode;
 //    }
+
+
+    @Override
+    public String toString() {
+        return "GetBody{" +
+                "jan='" + jan + '\'' +
+                ", rank='" + rank + '\'' +
+                ", point='" + point + '\'' +
+                '}';
+    }
 }
