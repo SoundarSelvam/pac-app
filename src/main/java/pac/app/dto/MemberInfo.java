@@ -1,9 +1,11 @@
 package pac.app.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.micronaut.core.annotation.Introspected;
 
 import java.util.List;
 
+@Introspected
 public class MemberInfo {
     @JsonProperty("MEMBER_RANK")
     private String memberRank;

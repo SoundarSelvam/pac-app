@@ -1,7 +1,9 @@
 package pac.app.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.micronaut.core.annotation.Introspected;
 
+@Introspected
 public class Output {
     @JsonProperty("KIND_CD")
     private String kindCd;

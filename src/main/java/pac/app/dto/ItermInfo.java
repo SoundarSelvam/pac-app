@@ -1,7 +1,9 @@
 package pac.app.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.micronaut.core.annotation.Introspected;
 
+@Introspected
 public class ItermInfo {
 
     @JsonProperty("JAN_CODE")
