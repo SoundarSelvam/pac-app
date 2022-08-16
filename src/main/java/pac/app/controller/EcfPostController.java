@@ -109,12 +109,12 @@ public class EcfPostController {
                 .withRegion(Regions.AP_NORTHEAST_1).build();
         LOG.info(body);
         String[] j = body.split(",");
-        String jan = j[1].substring(8,j[1].length()-1);
+        String jan = j[0].substring(8,j[0].length()-1);
         //String rank =j[2].substring(8,j[2].length()-1);
         //String point =j[3].substring(9,j[3].length()-1);
+        LOG.info(j[0]);
         LOG.info(j[1]);
         LOG.info(j[2]);
-        LOG.info(j[3]);
 //        String rank = getBody.getRank();
 //        String point = getBody.getPoint();
 //        String jan = "1234567890234";
