@@ -1,11 +1,13 @@
 package pac.app.controller;
 
-import pac.app.dto.PrimeFinderResponse;
+import pac.app.dto.*;
 import pac.app.service.TestService;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.net.URL;
@@ -39,7 +41,6 @@ import org.apache.http.conn.HttpClientConnectionManager;
 import java.io.IOException;
 import java.util.Iterator;
 import io.micronaut.http.annotation.*;
-import pac.app.dto.GetBody;
 
 @Controller("/ecf")
 public class EcfPostController {
@@ -102,7 +103,7 @@ public class EcfPostController {
     }
     @Post("/pepost")
     @Produces(MediaType.APPLICATION_JSON)
-    public String postEvent(@Body String body) {
+    public Output postEvent(@Body String body) {
         //url = new URL("https://3bd3af9o6a.execute-api.us-east-1.amazonaws.com/p/js");
         amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard()
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
@@ -111,18 +112,13 @@ public class EcfPostController {
         String[] j = body.split(",");
         String jan = j[0].substring(8,j[0].length()-1);
         String rank =j[1].substring(8,j[1].length()-1);
-        String point =j[2].substring(9,j[2].length()-1);
+        String point =j[2].substring(9,j[2].length()-2);
         LOG.info(j[0]);
         LOG.info(j[1]);
         LOG.info(j[2]);
         LOG.info(jan);
         LOG.info(rank);
         LOG.info(point);
-//        String rank = getBody.getRank();
-//        String point = getBody.getPoint();
-//        String jan = "1234567890234";
-        //String rank = "2";
-//        //String point = "800";
         LOG.info("Local_Test4_murugan");
         HashMap<String, Condition> scanFilter = new HashMap<>();
         scanFilter.put("jan", new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
@@ -167,20 +163,44 @@ public class EcfPostController {
             }
             // return "{\"jan\":\"" + jan + "\",\"MasterStroreCode\":\"" + base_masterStoreCode + "\",\"MaStoreCode\":\"" + base_maStoreCode + "\",\"PromotionCode\":\"" + base_promotionCode + "\",\"RewardCode\":\"" + base_rewardCode + "\"}";
         }
-        return "{\n" +
-                "  \"MEMBER_INFO\": {\n" +
-                "    \"MEMBER_RANK\":\"" + rank + "\",\n" +
-                "    \"PROMOTION\": [\n" +
-                "      {\n" +
-                "        \"PROMOTION_CODE\":\"" + base_promotionCode + "\",\n" +
-                "        \"PROMOTION_DESC\":\"" + base_promotionDesc + "\",\n" +
-                "        \"ITERM-INFO\": [\n" +
-                "          {\"JAN_CODE\":\"" + jan + "\", \"POINT_PLUS\":\"" + base_point + "\",\"STORE_CODE\":\"" + base_maStoreCode + "\"},\n" +
-                "        ]\n" +
-                "      },\n" +
-                "    ]\n" +
-                "  }\n" +
-                "\"}";
+
+        ItermInfo itermInfo = new ItermInfo();
+        itermInfo.setJanCode(jan);
+        itermInfo.setPointPlus("800");
+        itermInfo.setStoreCode(base_maStoreCode);
+
+        Promotion promotion = new Promotion();
+        promotion.setPromotionCode(base_promotionCode);
+        promotion.setPromotionDesc(base_promotionDesc);
+        promotion.setItermInfo(itermInfo);
+
+        List<Promotion>  promotions = new ArrayList<>();
+        promotions.add(promotion);
+
+        MemberInfo memberInfo = new MemberInfo();
+        memberInfo.setMemberRank(rank);
+        memberInfo.setPointAll(point);
+        memberInfo.setPromotion(promotions);
+
+        Output output = new Output();
+        output.setKindCd("PAC");
+        output.setMemberInfo(memberInfo);
+
+        return output;
+//        return "{\n" +
+//                "  \"MEMBER_INFO\": {\n" +
+//                "    \"MEMBER_RANK\":\"" + rank + "\",\n" +
+//                "    \"PROMOTION\": [\n" +
+//                "      {\n" +
+//                "        \"PROMOTION_CODE\":\"" + base_promotionCode + "\",\n" +
+//                "        \"PROMOTION_DESC\":\"" + base_promotionDesc + "\",\n" +
+//                "        \"ITERM-INFO\": [\n" +
+//                "          {\"JAN_CODE\":\"" + jan + "\", \"POINT_PLUS\":\"" + base_point + "\",\"STORE_CODE\":\"" + base_maStoreCode + "\"},\n" +
+//                "        ]\n" +
+//                "      },\n" +
+//                "    ]\n" +
+//                "  }\n" +
+//                "\"}";
             }
 
         @Get("/find/{number}")
