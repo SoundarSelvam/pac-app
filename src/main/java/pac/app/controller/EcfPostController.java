@@ -125,7 +125,7 @@ public class EcfPostController {
         LOG.info(jan);
         LOG.info(rank);
         LOG.info(point);
-        LOG.info("Local_Test4_murugan");
+        LOG.info("Local_Test455_murugan");
         HashMap<String, Condition> scanFilter = new HashMap<>();
         scanFilter.put("jan", new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
                 .withAttributeValueList(new AttributeValue().withS(jan)));
