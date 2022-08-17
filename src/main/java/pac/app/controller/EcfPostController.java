@@ -147,6 +147,7 @@ public class EcfPostController {
             while (iterator.hasNext()) {
                 String key = iterator.next();
                 cc = bb.get(key);
+                LOG.info(cc.toString());
                 if (cc.equals(rank)) {
                     if (key.equals("jan")) {
                         base_masterStoreCode = body.substring(0, 5);
