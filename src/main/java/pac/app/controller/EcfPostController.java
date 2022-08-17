@@ -109,7 +109,6 @@ public class EcfPostController {
         String s = String.valueOf(cc);
         return "{\"jan\":\"" + jan + "\",\"point\":\"" + base_point + "\",\"PromotionDesc\":\"" + base_promotionDesc + "\",\"rank\":\"" + base_rank + "\"}";
     }
-
     @Post("/pepost")
     @Produces(MediaType.APPLICATION_JSON)
     public String postEvent(@Body String body) {
@@ -147,6 +146,7 @@ public class EcfPostController {
             while (iterator.hasNext()) {
                 String key = iterator.next();
                 cc = bb.get(key);
+                LOG.info(bb.toString());
                 LOG.info(cc.toString());
                 if (bb.get("rank").equals(rank)) {
                     if (key.equals("jan")) {
