@@ -140,15 +140,14 @@ public class EcfPostController {
         String base_promotionDesc = "";
         String base_point = "";
         String base_rewardCode = "";
-        String s = body.substring(0, 5);
-        LOG.info(s);
+        LOG.info(jan);
         for (int i = 1; i < aa.size(); i++) {
             java.util.Map<String, AttributeValue> bb = aa.get(i);
             Iterator<String> iterator = bb.keySet().iterator();
             while (iterator.hasNext()) {
                 String key = iterator.next();
                 cc = bb.get(key);
-                if (bb.get("rank").equals(rank)) {
+                if (key.equals(rank)) {
                     if (key.equals("jan")) {
                         base_masterStoreCode = body.substring(0, 5);
                         base_maStoreCode = body.substring(5, 6);
