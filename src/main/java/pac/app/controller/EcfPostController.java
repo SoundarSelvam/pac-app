@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.net.URL;
 import java.net.*;
+
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
@@ -38,9 +39,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.HttpClientConnectionManager;
+
 import java.io.IOException;
 import java.util.Iterator;
+
 import io.micronaut.http.annotation.*;
+
 import javax.inject.Singleton;
 
 @Singleton
@@ -50,11 +54,13 @@ public class EcfPostController {
     private final TestService testService;
     private static AmazonDynamoDB amazonDynamoDBClient = null;
     private static Table table = null;
-    static HttpURLConnection connection=null;
+    static HttpURLConnection connection = null;
     static URL url;
+
     public EcfPostController(TestService primeFinderService) {
         this.testService = primeFinderService;
     }
+
     @Post("/pe")
     @Produces(MediaType.APPLICATION_JSON)
     public String saveEvent(@Body String body) {
@@ -103,31 +109,27 @@ public class EcfPostController {
         String s = String.valueOf(cc);
         return "{\"jan\":\"" + jan + "\",\"point\":\"" + base_point + "\",\"PromotionDesc\":\"" + base_promotionDesc + "\",\"rank\":\"" + base_rank + "\"}";
     }
+
     @Post("/pepost")
-    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Output postEvent(@Body GetBody body) {
+    public String postEvent(@Body String body) {
         amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard()
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
                 .withRegion(Regions.AP_NORTHEAST_1).build();
-        LOG.info(String.valueOf(body));
-        LOG.info("Jan Value : {}", body.getJan());
-//        String[] j = body.split(",");
-//        String jan = j[0].substring(8,j[0].length()-1);
-//        String rank =j[1].substring(8,j[1].length()-1);
-//        String point =j[2].substring(9,j[2].length()-2);
-//        LOG.info(j[0]);
-//        LOG.info(j[1]);
-//        LOG.info(j[2]);
-//        LOG.info(jan);
-//        LOG.info(rank);
-//        LOG.info(point);
+        String[] j = body.split(",");
+        String jan = j[0].substring(8, j[0].length() - 1);
+        String rank = j[1].substring(8, j[1].length() - 1);
+        String point = j[2].substring(9, j[2].length() - 2);
+        LOG.info(j[0]);
+        LOG.info(j[1]);
+        LOG.info(j[2]);
+        LOG.info(jan);
+        LOG.info(rank);
+        LOG.info(point);
         LOG.info("Local_Test4_murugan");
         HashMap<String, Condition> scanFilter = new HashMap<>();
         scanFilter.put("jan", new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
-                        .withAttributeValueList(new AttributeValue().withS(body.getJan())));
-        scanFilter.put("rank", new Condition().withComparisonOperator(ComparisonOperator.EQ.toString())
-                .withAttributeValueList(new AttributeValue().withS(body.getRank())));
+                .withAttributeValueList(new AttributeValue().withS(jan)));
         ScanRequest scanRequest = new ScanRequest("pac_all").withScanFilter(scanFilter);
         ScanResult scanResult = amazonDynamoDBClient.scan(scanRequest);
         List<java.util.Map<String, AttributeValue>> aa = scanResult.getItems();
@@ -137,8 +139,8 @@ public class EcfPostController {
         String base_promotionCode = "";
         String base_promotionDesc = "";
         String base_point = "";
-        String base_rewardCode="";
-        String s = body.getJan().substring(0,5);
+        String base_rewardCode = "";
+        String s = body.substring(0, 5);
         LOG.info(s);
         for (int i = 1; i < aa.size(); i++) {
             java.util.Map<String, AttributeValue> bb = aa.get(i);
@@ -146,87 +148,88 @@ public class EcfPostController {
             while (iterator.hasNext()) {
                 String key = iterator.next();
                 cc = bb.get(key);
-                if (key.equals("jan")) {
-                    base_masterStoreCode = body.getJan().substring(0, 5);
-                    base_maStoreCode = body.getJan().substring(5, 6);
-                    base_promotionCode = body.getJan().substring(6, 10);
-                    base_rewardCode = body.getJan().substring(10);
+                if (bb.get("rank").equals(rank)) {
+                    if (key.equals("jan")) {
+                        base_masterStoreCode = body.substring(0, 5);
+                        base_maStoreCode = body.substring(5, 6);
+                        base_promotionCode = body.substring(6, 10);
+                        base_rewardCode = body.substring(10);
+                    }
+                    LOG.info(base_masterStoreCode);
+                    if (key.equals("promotionDesc")) {
+                        base_promotionDesc = cc.toString().substring(4);
+                        base_promotionDesc = base_promotionDesc.substring(0, base_promotionDesc.length() - 2);
+                    }
+                    if (key.equals("point")) {
+                        base_point = cc.toString().substring(4);
+                        base_point = base_point.substring(0, base_point.length() - 2);
+                    }
+                    LOG.info(cc.toString());
+                    LOG.info(base_masterStoreCode);
                 }
-                LOG.info(base_masterStoreCode);
-                if (key.equals("promotionDesc")) {
-                    base_promotionDesc = cc.toString().substring(4);
-                    base_promotionDesc = base_promotionDesc.substring(0, base_promotionDesc.length() - 2);
-                }
-                if (key.equals("point")) {
-                    base_point = cc.toString().substring(4);
-                    base_point = base_point.substring(0, base_point.length() - 2);
-                }
-                LOG.info(cc.toString());
-                LOG.info(base_masterStoreCode);
             }
             // return "{\"jan\":\"" + jan + "\",\"MasterStroreCode\":\"" + base_masterStoreCode + "\",\"MaStoreCode\":\"" + base_maStoreCode + "\",\"PromotionCode\":\"" + base_promotionCode + "\",\"RewardCode\":\"" + base_rewardCode + "\"}";
         }
 
-        ItermInfo itermInfo = new ItermInfo();
-//        itermInfo.setJanCode(jan);
-        itermInfo.setJanCode(body.getJan());
-        itermInfo.setPointPlus("800");
-        itermInfo.setStoreCode(base_maStoreCode);
+//        ItermInfo itermInfo = new ItermInfo();
+////        itermInfo.setJanCode(jan);
+//        itermInfo.setJanCode(body.getJan());
+//        itermInfo.setPointPlus("800");
+//        itermInfo.setStoreCode(base_maStoreCode);
+//
+//        Promotion promotion = new Promotion();
+//        promotion.setPromotionCode(base_promotionCode);
+//        promotion.setPromotionDesc(base_promotionDesc);
+//        promotion.setItermInfo(itermInfo);
+//        List<Promotion>  promotions = new ArrayList<>();
+//        promotions.add(promotion);
+//        MemberInfo memberInfo = new MemberInfo();
+////        memberInfo.setMemberRank(rank);
+////        memberInfo.setPointAll(point);
+//        memberInfo.setMemberRank(body.getRank());
+//        memberInfo.setPointAll(body.getPoint());
+//        memberInfo.setPromotion(promotions);
+//        Output output = new Output();
+//        output.setKindCd("PAC");
+//        output.setMemberInfo(memberInfo);
+//        LOG.info("output is :{} ", output);
+//        return output;
+        return "{\n" +
+                "  \"MEMBER_INFO\": {\n" +
+                "    \"MEMBER_RANK\":\"" + rank + "\",\n" +
+                "    \"PROMOTION\": [\n" +
+                "      {\n" +
+                "        \"PROMOTION_CODE\":\"" + base_promotionCode + "\",\n" +
+                "        \"PROMOTION_DESC\":\"" + base_promotionDesc + "\",\n" +
+                "        \"ITERM-INFO\": [\n" +
+                "          {\"JAN_CODE\":\"" + jan + "\", \"POINT_PLUS\":\"" + base_point + "\",\"STORE_CODE\":\"" + base_maStoreCode + "\"},\n" +
+                "        ]\n" +
+                "      },\n" +
+                "    ]\n" +
+                "  }\n" +
+                "\"}";
+    }
 
-        Promotion promotion = new Promotion();
-        promotion.setPromotionCode(base_promotionCode);
-        promotion.setPromotionDesc(base_promotionDesc);
-        promotion.setItermInfo(itermInfo);
-        List<Promotion>  promotions = new ArrayList<>();
-        promotions.add(promotion);
-
-        MemberInfo memberInfo = new MemberInfo();
-//        memberInfo.setMemberRank(rank);
-//        memberInfo.setPointAll(point);
-        memberInfo.setMemberRank(body.getRank());
-        memberInfo.setPointAll(body.getPoint());
-        memberInfo.setPromotion(promotions);
-        Output output = new Output();
-        output.setKindCd("PAC");
-        output.setMemberInfo(memberInfo);
-        LOG.info("output is :{} ", output);
-        return output;
-//        return "{\n" +
-//                "  \"MEMBER_INFO\": {\n" +
-//                "    \"MEMBER_RANK\":\"" + rank + "\",\n" +
-//                "    \"PROMOTION\": [\n" +
-//                "      {\n" +
-//                "        \"PROMOTION_CODE\":\"" + base_promotionCode + "\",\n" +
-//                "        \"PROMOTION_DESC\":\"" + base_promotionDesc + "\",\n" +
-//                "        \"ITERM-INFO\": [\n" +
-//                "          {\"JAN_CODE\":\"" + jan + "\", \"POINT_PLUS\":\"" + base_point + "\",\"STORE_CODE\":\"" + base_maStoreCode + "\"},\n" +
-//                "        ]\n" +
-//                "      },\n" +
-//                "    ]\n" +
-//                "  }\n" +
-//                "\"}";
+    @Get("/find/{number}")
+    public PrimeFinderResponse findPrimesBelow(int number) {
+        PrimeFinderResponse resp = new PrimeFinderResponse();
+        if (number >= testService.MAX_SIZE) {
+            if (LOG.isInfoEnabled()) {
+                LOG.info("This number is too big, you can't possibly want to know all the primes below a number this big.");
             }
-
-        @Get("/find/{number}")
-        public PrimeFinderResponse findPrimesBelow ( int number){
-            PrimeFinderResponse resp = new PrimeFinderResponse();
-            if (number >= testService.MAX_SIZE) {
-                if (LOG.isInfoEnabled()) {
-                    LOG.info("This number is too big, you can't possibly want to know all the primes below a number this big.");
-                }
-                resp.setMessage("This service only returns lists for numbers below " + testService.MAX_SIZE);
-                return resp;
-            }
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Computing all the primes smaller than {} ...", number);
-            }
-            resp.setMessage("Success!");
-            resp.setPrimes(testService.findPrimesLessThan(number));
+            resp.setMessage("This service only returns lists for numbers below " + testService.MAX_SIZE);
             return resp;
         }
-
-        @Get("/test")
-        public String test() {
-            return "successfully tested";
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Computing all the primes smaller than {} ...", number);
         }
+        resp.setMessage("Success!");
+        resp.setPrimes(testService.findPrimesLessThan(number));
+        return resp;
     }
+
+    @Get("/test")
+    public String test() {
+        return "successfully tested";
+    }
+}
