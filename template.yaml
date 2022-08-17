@@ -5,8 +5,8 @@ Resources:
     Type: AWS::Lambda::Function
     DeletionPolicy: Retain
     Properties:
-      FunctionName: PAC-PE-API-POST-01
-      Role: arn:aws:iam::114872357316:role/PAC-PE-API-POST-role-nolpgpun
+      FunctionName: pac-batch-springnative
+      Role: arn:aws:iam::023174938363:role/pac-batch-springboot-role
       Runtime: provided.al2
       Handler: function.handler
       Code: ./
