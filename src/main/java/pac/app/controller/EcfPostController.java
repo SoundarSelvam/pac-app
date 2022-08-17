@@ -41,7 +41,9 @@ import org.apache.http.conn.HttpClientConnectionManager;
 import java.io.IOException;
 import java.util.Iterator;
 import io.micronaut.http.annotation.*;
+import javax.inject.Singleton;
 
+@Singleton
 @Controller("/ecf")
 public class EcfPostController {
     private static final Logger LOG = LoggerFactory.getLogger(EcfPostController.class);
@@ -105,7 +107,6 @@ public class EcfPostController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Output postEvent(@Body GetBody body) {
-        //url = new URL("https://3bd3af9o6a.execute-api.us-east-1.amazonaws.com/p/js");
         amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard()
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
                 .withRegion(Regions.AP_NORTHEAST_1).build();
@@ -185,7 +186,6 @@ public class EcfPostController {
         memberInfo.setMemberRank(body.getRank());
         memberInfo.setPointAll(body.getPoint());
         memberInfo.setPromotion(promotions);
-
         Output output = new Output();
         output.setKindCd("PAC");
         output.setMemberInfo(memberInfo);

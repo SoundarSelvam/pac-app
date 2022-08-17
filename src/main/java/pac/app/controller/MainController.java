@@ -38,7 +38,6 @@ import javax.inject.Singleton;
 import java.io.IOException;
 import java.util.Iterator;
 
-@Singleton
 @Controller("/")
 public class MainController {
 
