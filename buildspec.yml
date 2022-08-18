@@ -21,14 +21,14 @@ phases:
       - rm -rf *
       - cp /home/test/pac-app/* ./
       - more template.yaml
-      - aws cloudformation package --template-file template.yaml --output-template-file packaged-template.yaml --s3-bucket csvs3lambda2
+      - aws cloudformation package --template-file template.yaml --output-template-file packaged-template.yaml --s3-bucket cz-s3-pac-snb
       - more packaged-template.yaml
-      - aws cloudformation create-change-set --stack-name pac-batch-springnative-stack --change-set-name ChangeSetPAC --template-body file://packaged-template.yaml --capabilities CAPABILITY_IAM
+      - aws cloudformation create-change-set --stack-name cz-pac-pac-snb-06 --change-set-name ChangeSetPAC --template-body file://packaged-template.yaml --capabilities CAPABILITY_IAM
       - pwd
   post_build:
     commands:
-      - aws cloudformation wait change-set-create-complete --stack-name pac-batch-springnative-stack --change-set-name ChangeSetPAC
-      - aws cloudformation execute-change-set --change-set-name ChangeSetPAC --stack-name pac-batch-springnative-stack
+      - aws cloudformation wait change-set-create-complete --stack-name cz-pac-pac-snb-06 --change-set-name ChangeSetPAC
+      - aws cloudformation execute-change-set --change-set-name ChangeSetPAC --stack-name cz-pac-pac-snb-06
 artifacts:
   files:
     - template.yaml
